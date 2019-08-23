@@ -3,10 +3,9 @@ import commander from 'commander';
 import isWithinInterval from 'date-fns/isWithinInterval/index.js';
 import addDays from 'date-fns/addDays/index.js';
 import parseIso from 'date-fns/parseISO/index.js';
-import { articles } from "../src/articles.mjs";
+import { articles, createArticle } from "../src/articles.mjs";
 import { readme } from "../src/readme.mjs";
 import { until, reduce } from "../src/async-generators-helpers.mjs";
-import { createArticle } from "../src/articles";
 
 async function* tagsWithStatics(articlesIterator = articles()) {
   for await (const article of articlesIterator) {
@@ -63,11 +62,11 @@ const titlePartsForTemporal = (temporal) => {
   }
 };
 const main = async ({
-  temporal,
-  numberOfTags = 99,
-  publishArticle = false,
-  output = true,
-}) => {
+                      temporal,
+                      numberOfTags = 99,
+                      publishArticle = false,
+                      output = true,
+                    }) => {
   const titlePart = titlePartsForTemporal(temporal);
   const tags = await reduce(
     tagsWithStatics(articlesForTemporal(temporal)),
@@ -96,7 +95,7 @@ series: The Most popular Tags
 ---
 # The ${numberOfTags} most used Tags ${titlePart}
 ${mostUsedTags
-    .map(([tag, {usages}], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) used **${usages}** times {% tag ${tag} %}`)}
+    .map(([tag, { usages }], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) used **${usages}** times {% tag ${tag} %}`)}
   `;
   const mostReactedTagsMD = readme`---
 title: The ${numberOfTags} most reacted Tags ${titlePart}
@@ -107,7 +106,7 @@ series: The Most popular Tags
 
 # The ${numberOfTags} most reacted Tags ${titlePart}
 ${mostReactedTags
-    .map(([tag, {reactions}], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) reacted **${reactions}** times {% tag ${tag} %}`)}
+    .map(([tag, { reactions }], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) reacted **${reactions}** times {% tag ${tag} %}`)}
   `;
 
   const mostCommentedTagsMD = readme`---
@@ -119,7 +118,7 @@ series: The Most popular Tags
 
 # The ${numberOfTags} most commented Tags ${titlePart}
 ${mostCommentedTags
-    .map(([tag, {comments}], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) commented **${comments}** times {% tag ${tag} %}`)}
+    .map(([tag, { comments }], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) commented **${comments}** times {% tag ${tag} %}`)}
   `;
 
   const mostScoredTagsMD = readme`---
@@ -130,7 +129,7 @@ series: The Most popular Tags
 ---
 # The ${numberOfTags} most popular Tags ${titlePart}
 ${mostScoredTags
-    .map(([tag, {score}], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) {% tag ${tag} %}`)}
+    .map(([tag, { score }], position) => readme`  ${position + 1}. [${tag}](https://dev.to/t/${tag}) {% tag ${tag} %}`)}
   `;
 
   if (output) {
