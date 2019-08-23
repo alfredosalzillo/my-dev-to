@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import { waitAll } from "../src/async-generators-helpers";
-import { articles } from "../src/articles";
-import { readme } from "../src/readme";
+import { waitAll } from "../src/async-generators-helpers.mjs";
+import { articles } from "../src/articles.mjs";
+import { readme } from "../src/readme.mjs";
 
 const score = article => article.positive_reactions_count + article.comments_count * 1.5;
 const main = async () => {
