@@ -148,11 +148,20 @@ ${mostScoredTags
   }
 
   const logArticleCreated = (article) => console.info(`created ${article.url}`);
+  const logArticleError = (type) => (error) => console.info(`error creating most ${type} tags ${error.message}`);
   await Promise.all([
-    createArticle({ body_markdown: mostUsedTagsMD }).then(logArticleCreated),
-    createArticle({ body_markdown: mostReactedTagsMD }).then(logArticleCreated),
-    createArticle({ body_markdown: mostCommentedTagsMD }).then(logArticleCreated),
-    createArticle({ body_markdown: mostScoredTagsMD }).then(logArticleCreated),
+    createArticle({ body_markdown: mostUsedTagsMD })
+      .then(logArticleCreated)
+      .catch(logArticleError('used')),
+    createArticle({ body_markdown: mostReactedTagsMD })
+      .then(logArticleCreated)
+      .catch(logArticleError('reacted')),
+    createArticle({ body_markdown: mostCommentedTagsMD })
+      .then(logArticleCreated)
+      .catch(logArticleError('commented')),
+    createArticle({ body_markdown: mostScoredTagsMD })
+      .then(logArticleCreated)
+      .catch(logArticleError('scored')),
   ]);
 };
 
