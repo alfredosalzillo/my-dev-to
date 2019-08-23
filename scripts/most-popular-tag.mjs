@@ -73,19 +73,18 @@ const main = async ({
     tagsWithStatics(articlesForTemporal(temporal)),
     toStatisticObject,
     {});
-  fs.outputFileSync('outputs/tags.json', JSON.stringify(tags));
-  console.info(`tags successful stored to outputs/${temporal}/tags.json`);
 
-  const mostUsedTags = Object.entries(tags)
+  const tagsAsEntries = Object.entries(tags);
+  const mostUsedTags = tagsAsEntries
     .sort(sortDescEntriesByKey('usages'))
     .slice(0, numberOfTags);
-  const mostReactedTags = Object.entries(tags)
+  const mostReactedTags = tagsAsEntries
     .sort(sortDescEntriesByKey('reactions'))
     .slice(0, numberOfTags);
-  const mostCommentedTags = Object.entries(tags)
+  const mostCommentedTags = tagsAsEntries
     .sort(sortDescEntriesByKey('comments'))
     .slice(0, numberOfTags);
-  const mostScoredTags = Object.entries(tags)
+  const mostScoredTags = tagsAsEntries
     .sort(sortDescEntriesByKey('score'))
     .slice(0, numberOfTags);
 
@@ -136,16 +135,24 @@ ${mostScoredTags
 
   if (output) {
     fs.outputFileSync(`outputs/${temporal}/most-used-tags.md`, mostUsedTagsMD);
+    console.info(`created outputs/${temporal}/most-used-tags.md`);
+
     fs.outputFileSync(`outputs/${temporal}/most-reacted-tags.md`, mostReactedTagsMD);
+    console.info(`created outputs/${temporal}/most-reacted-tags.md`);
+
     fs.outputFileSync(`outputs/${temporal}/most-commented-tags.md`, mostCommentedTagsMD);
+    console.info(`created outputs/${temporal}/most-commented-tags.md`);
+
     fs.outputFileSync(`outputs/${temporal}/most-scored-tags.md`, mostScoredTagsMD);
+    console.info(`created outputs/${temporal}/most-scored-tags.md`);
   }
 
+  const logArticleCreated = (article) => console.info(`created ${article.url}`);
   await Promise.all([
-    createArticle({ body_markdown: mostUsedTagsMD }),
-    createArticle({ body_markdown: mostReactedTagsMD }),
-    createArticle({ body_markdown: mostCommentedTagsMD }),
-    createArticle({ body_markdown: mostScoredTagsMD }),
+    createArticle({ body_markdown: mostUsedTagsMD }).then(logArticleCreated),
+    createArticle({ body_markdown: mostReactedTagsMD }).then(logArticleCreated),
+    createArticle({ body_markdown: mostCommentedTagsMD }).then(logArticleCreated),
+    createArticle({ body_markdown: mostScoredTagsMD }).then(logArticleCreated),
   ]);
 };
 
