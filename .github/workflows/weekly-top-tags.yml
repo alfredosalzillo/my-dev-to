@@ -22,7 +22,7 @@ jobs:
     - name: npm install, and publish weekly tops tag
       run: |
         npm install
-        node --experimental-modules scripts\most-popular-tag.mjs --temporal weekly --number 9
+        node --experimental-modules scripts/most-popular-tag.mjs --temporal weekly --number 9
       env:
         CI: true
         DEV_TO_API_KEY: ${{ secrets.SuperSecret }}
