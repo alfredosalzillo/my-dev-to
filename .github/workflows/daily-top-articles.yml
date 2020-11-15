@@ -21,4 +21,4 @@ jobs:
          most-popular-articles
       env:
         CI: true
-        DEV_TO_API_KEY: ${{ secrets.SuperSecret }}
+        DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
