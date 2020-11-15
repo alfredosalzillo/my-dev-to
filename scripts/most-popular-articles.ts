@@ -34,7 +34,9 @@ ${description}
 Based on ${totalOfArticles} articles with ${totalComments} 💬 and ${totalReactions} 💕.
 
 ${popularArticles.map(toArticlePositionLine)} 
+
 ---
+
 ${disclaimer}
   `;
   return createArticle({
