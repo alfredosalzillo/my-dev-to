@@ -11,6 +11,7 @@ const today = () => {
   return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
 }
 const main = async () => {
+  console.log("using env DEV_TO_PUBLISHED", Deno.env.get('DEV_TO_PUBLISHED'))
   const published = Deno.env.get('DEV_TO_PUBLISHED') === 'true';
   const allArticles = await AsyncStream.of(articles({ page: 1, top: 1}, 1)).collect();
   const popularArticles = allArticles.sort(byScore).slice(0, 9);
