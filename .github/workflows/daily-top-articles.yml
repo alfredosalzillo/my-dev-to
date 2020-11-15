@@ -22,16 +22,8 @@ jobs:
       env:
         CI: true
     - name: Run
-      run: |
-        most-popular-articles
+      run: most-popular-articles
       env:
-        DEV_TO_PUBLISHED: false
+        DEV_TO_PUBLISHED: ${{ github.event_name == 'schedule' }}
         DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
-      if: ${{ github.event_name == 'push' }}
-    - name: Run
-        run: |
-          most-popular-articles
-        env:
-          DEV_TO_PUBLISHED: true
-          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
-        if: ${{ github.event_name == 'schedule' }}
+
