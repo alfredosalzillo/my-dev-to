@@ -13,11 +13,17 @@ const today = () => {
 const main = async () => {
   const allArticles = await AsyncStream.of(articles({ page: 1, top: 1}, 1)).collect();
   const popularArticles = allArticles.sort(byScore).slice(0, 9);
-  const title = `The 9 most popular Articles sof today (${today()})`;
+  const title = `The 9 most popular Articles of today (${today()})`;
   const content = readme`
 # ${title}
 ${popularArticles
     .map((article, position) => readme`  ${position + 1}. ${article.comments_count} 💬 and ${article.positive_reactions_count} 💕 {% link ${article.url} %}`)}
+    
+---
+
+Automated with [alfredosalzillo/my-dev-to](https://github.com/alfredosalzillo/my-dev-to)
+
+{% github alfredosalzillo/my-dev-to %}
   `;
   return createArticle({
     title,
