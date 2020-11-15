@@ -34,6 +34,7 @@ Automated with [alfredosalzillo/my-dev-to](https://github.com/alfredosalzillo/my
     published,
   }).then((article) => {
     console.log('successfully created article ', article.canonical_url);
+    return Deno.writeTextFile('./most-popular-articles.md', content)
   })
 };
 

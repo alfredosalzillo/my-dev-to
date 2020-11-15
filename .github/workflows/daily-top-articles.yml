@@ -26,4 +26,9 @@ jobs:
       env:
         DEV_TO_PUBLISHED: ${{ github.event_name == 'schedule' }}
         DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+    - uses: actions/upload-artifact@v2
+      name: Upload Artifact
+      with:
+        name: most-popular-articles.md
+        path: ./most-popular-articles.md
 
