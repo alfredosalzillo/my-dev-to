@@ -16,9 +16,22 @@ jobs:
       uses: denolib/setup-deno@v2
       with:
         deno-version: v1.x
-    - run: |
+    - name: Install
+      run: |
          deno install --allow-env --allow-net --allow-write -n most-popular-articles ./scripts/most-popular-articles.ts
-         most-popular-articles
       env:
         CI: true
+    - name: Run
+      run: |
+        most-popular-articles
+      env:
+        DEV_TO_PUBLISHED: false
         DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+      if: ${{ github.event_name == 'push' }}
+    - name: Run
+        run: |
+          most-popular-articles
+        env:
+          DEV_TO_PUBLISHED: true
+          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+        if: ${{ github.event_name == 'schedule' }}

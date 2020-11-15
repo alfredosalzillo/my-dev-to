@@ -11,6 +11,7 @@ const today = () => {
   return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
 }
 const main = async () => {
+  const published = Deno.env.get('DEV_TO_PUBLISHED') === 'true';
   const allArticles = await AsyncStream.of(articles({ page: 1, top: 1}, 1)).collect();
   const popularArticles = allArticles.sort(byScore).slice(0, 9);
   const title = `The 9 most popular Articles of today (${today()})`;
@@ -29,10 +30,9 @@ Automated with [alfredosalzillo/my-dev-to](https://github.com/alfredosalzillo/my
     title,
     body_markdown: content,
     tags: ["misc"],
-    published: true
+    published,
   }).then((article) => {
-    console.log('successfully created article');
-    console.table(article)
+    console.log('successfully created article ', article.canonical_url);
   })
 };
 
