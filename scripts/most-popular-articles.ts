@@ -19,7 +19,6 @@ const main = async () => {
 ${popularArticles
     .map((article, position) => readme`  ${position + 1}. ${article.comments_count} 💬 and ${article.positive_reactions_count} 💕 {% link ${article.url} %}`)}
   `;
-  Deno.writeTextFile('outputs/most-popular-articles.md', content);
   return createArticle({
     title,
     body_markdown: content,
