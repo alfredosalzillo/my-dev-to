@@ -24,6 +24,9 @@ ${popularArticles
     body_markdown: content,
     tags: ["misc", "top-articles"],
     published: true
+  }).then((article) => {
+    console.log('successfully created article');
+    console.table(article, Object.keys(article))
   })
 };
 
