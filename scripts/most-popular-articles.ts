@@ -27,6 +27,7 @@ ${popularArticles
   }).then((article) => {
     console.log('successfully created article');
     console.table(article, Object.keys(article))
+    console.log(article);
   })
 };
 
