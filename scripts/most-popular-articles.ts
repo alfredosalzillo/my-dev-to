@@ -22,12 +22,11 @@ ${popularArticles
   return createArticle({
     title,
     body_markdown: content,
-    tags: ["misc", "top-articles"],
+    tags: ["misc"],
     published: true
   }).then((article) => {
     console.log('successfully created article');
-    console.table(article, Object.keys(article))
-    console.log(article);
+    console.table(article)
   })
 };
 
