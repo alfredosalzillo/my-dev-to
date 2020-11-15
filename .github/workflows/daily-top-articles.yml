@@ -13,9 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Use Deno
-      uses: denolib/deno-action@0.20.0
+      uses: denolib/setup-deno@v2
       with:
-        args: run --allow-env --allow-net --allow-write ./scripts/most-popular-articles.ts
+        deno-version: v1.x
+      run: |
+         run install --allow-env --allow-net --allow-write -n most-popular-articles ./scripts/most-popular-articles.ts
+         most-popular-articles
       env:
         CI: true
         DEV_TO_API_KEY: ${{ secrets.SuperSecret }}
