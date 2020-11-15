@@ -2,27 +2,17 @@ name: Weekly Top Tags
 
 on:
   schedule:
-  - cron: 0 2 * * 1
-    
+  - cron: 0 1 * * *
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Use Deno
+      uses: denolib/deno-action@0.20.0
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, and publish weekly tops tag
-      run: |
-        npm install
-        node --experimental-modules scripts/most-popular-tag.mjs --temporal weekly --number 9
+        args: run --allow-env --allow-net --allow-write ./scripts/most-popular-articles.ts
       env:
         CI: true
         DEV_TO_API_KEY: ${{ secrets.SuperSecret }}
