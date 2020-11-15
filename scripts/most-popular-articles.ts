@@ -30,7 +30,7 @@ Automated with [alfredosalzillo/my-dev-to](https://github.com/alfredosalzillo/my
   return createArticle({
     title,
     body_markdown: content,
-    tags: ["misc"],
+    tags: ["misc", "statistics", "meta"],
     published,
   }).then((article) => {
     console.log('successfully created article ', article.canonical_url);
