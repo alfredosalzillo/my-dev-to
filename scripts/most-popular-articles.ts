@@ -42,6 +42,7 @@ ${disclaimer}
     description,
     body_markdown: content,
     tags: ["misc", "statistics", "meta"],
+    main_image: "https://raw.githubusercontent.com/alfredosalzillo/my-dev-to/master/images/awards-accolades-banner.jpg",
     published,
   }).then((article) => {
     console.log('successfully created article ', article.canonical_url);
