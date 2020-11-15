@@ -17,7 +17,7 @@ jobs:
       with:
         deno-version: v1.x
     - run: |
-         run install --allow-env --allow-net --allow-write -n most-popular-articles ./scripts/most-popular-articles.ts
+         deno install --allow-env --allow-net --allow-write -n most-popular-articles ./scripts/most-popular-articles.ts
          most-popular-articles
       env:
         CI: true
