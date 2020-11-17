@@ -84,6 +84,7 @@ export const articles: ArticlesGenerator = async function* ({ page = 1, ...param
   let data;
   for await (data of Array(parallelRequests).fill(0).map((_, i) => fetchArticles({ ...params, page: page + i}))) {
     console.info(`successful retrieved ${data.length} articles`);
+    await new Promsise((resolve) => setTimeout(resolve, 300));
     yield* data;
   }
   if (data && data.length) yield* articles({ ...params, page: page + parallelRequests }, parallelRequests);
