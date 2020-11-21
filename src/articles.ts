@@ -19,6 +19,7 @@ export const articles = async function* (
       .fill(0)
       .map((_, i) => client.articles.retrieveAll({ ...params, page: page + i}))) {
     console.info(`successful retrieved ${data.length} articles`);
+    await new Promise((resolve) => setTimeout(resolve, 300));
     yield* data;
   }
   if (data && data.length) yield* articles({ ...params, page: page + parallelRequests }, parallelRequests);
