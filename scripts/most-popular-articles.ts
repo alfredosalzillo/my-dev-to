@@ -1,6 +1,7 @@
-import { format } from 'https://deno.land/std/datetime/mod.ts';
+import { ArticleSummary } from 'https://deno.land/x/foora/lib/articles.ts'
+import { format } from 'https://deno.land/std@0.78.0/datetime/mod.ts';
 import { AsyncStream } from '../src/async-generators-helpers.ts';
-import { articles, ArticleSummary, createArticle } from '../src/articles.ts';
+import { articles, createArticle } from '../src/articles.ts';
 import { readme } from "../src/readme.ts";
 
 const score = (article: ArticleSummary) => article.positive_reactions_count + article.comments_count * 1.5;
